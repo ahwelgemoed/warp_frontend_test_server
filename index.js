@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { ApolloServer } = require('apollo-server-express');
@@ -11,8 +12,8 @@ const swaggerConfig = require('./helpers/swaggerConfig');
 const expressSwagger = require('express-swagger-generator')(app);
 app.use(cors());
 app.use(bodyParser.json());
+app.use(`/public`, express.static(path.join(__dirname, './public')));
 app.use('/v1', allRoutes);
-app.use(express.static('/public'));
 
 const server = new ApolloServer({
   typeDefs,
